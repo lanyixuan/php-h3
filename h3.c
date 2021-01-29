@@ -50,6 +50,35 @@ PHP_INI_END()
 
 /* Every user-visible function in PHP should document itself in the source */
 
+PHP_FUNCTION(h3FromLong)
+{
+    zend_long h3_long;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "l", &h3_long) == FAILURE) {
+        return;
+    }
+
+    H3Index indexed = h3_long;
+
+    zend_resource *index_resource = zend_register_resource(indexed, le_h3_index);
+
+    RETURN_RES(index_resource);
+}
+
+PHP_FUNCTION(h3ToLong)
+{
+    zval *index_resource_zval;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "r", &index_resource_zval) == FAILURE) {
+        return;
+    }
+
+    H3Index  *indexed = (H3Index *) Z_RES_VAL_P(index_resource_zval);
+    zend_long h3_long = indexed;
+
+    RETURN_LONG(h3_long);
+}
+
 PHP_FUNCTION(geoToH3)
 {
     zend_long resolution;
@@ -1512,6 +1541,10 @@ PHP_MINFO_FUNCTION(h3)
  * Every user visible function must have an entry in h3_functions[].
  */
 const zend_function_entry h3_functions[] = {
+  
+    // global helper
+    PHP_FE(h3ToLong,    NULL)
+    PHP_FE(h3FromLong,    NULL)
 
     //Indexing functions
     PHP_FE(geoToH3,		NULL)
