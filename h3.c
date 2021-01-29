@@ -63,20 +63,6 @@ PHP_FUNCTION(h3FromLong)
     RETURN_LONG(indexed);
 }
 
-PHP_FUNCTION(h3ToLong)
-{
-    zval *index_resource_zval;
-
-    if (zend_parse_parameters(ZEND_NUM_ARGS(), "r", &index_resource_zval) == FAILURE) {
-        return;
-    }
-
-    H3Index  *indexed = (H3Index *) Z_RES_VAL_P(index_resource_zval);
-    zend_long h3_long = indexed;
-
-    RETURN_LONG(h3_long);
-}
-
 PHP_FUNCTION(geoToH3)
 {
     zend_long resolution;
