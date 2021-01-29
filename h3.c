@@ -1527,7 +1527,6 @@ PHP_MINFO_FUNCTION(h3)
 const zend_function_entry h3_functions[] = {
   
     // global helper
-    PHP_FE(h3ToLong,    NULL)
     PHP_FE(h3FromLong,    NULL)
 
     //Indexing functions
