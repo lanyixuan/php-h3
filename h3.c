@@ -60,9 +60,7 @@ PHP_FUNCTION(h3FromLong)
 
     H3Index indexed = h3_long;
 
-    zend_resource *index_resource = zend_register_resource(indexed, le_h3_index);
-
-    RETURN_RES(index_resource);
+    RETURN_LONG(indexed);
 }
 
 PHP_FUNCTION(h3ToLong)
